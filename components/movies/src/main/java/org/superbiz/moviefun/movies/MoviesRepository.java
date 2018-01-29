@@ -29,17 +29,19 @@ import javax.persistence.metamodel.EntityType;
 import java.util.List;
 
 @Repository
-public class MoviesBean {
+public class MoviesRepository {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    
     public Movie find(Long id) {
         return entityManager.find(Movie.class, id);
     }
 
+    
     @Transactional
     public void addMovie(Movie movie) {
         logger.debug("Creating movie with title {}, and year {}", movie.getTitle(), movie.getYear());
@@ -47,28 +49,33 @@ public class MoviesBean {
         entityManager.persist(movie);
     }
 
+    
     @Transactional
     public void updateMovie(Movie movie) {
         entityManager.merge(movie);
     }
 
+    
     @Transactional
     public void deleteMovie(Movie movie) {
         entityManager.remove(movie);
     }
 
+    
     @Transactional
     public void deleteMovieId(long id) {
         Movie movie = entityManager.find(Movie.class, id);
         deleteMovie(movie);
     }
 
+    
     public List<Movie> getMovies() {
         CriteriaQuery<Movie> cq = entityManager.getCriteriaBuilder().createQuery(Movie.class);
         cq.select(cq.from(Movie.class));
         return entityManager.createQuery(cq).getResultList();
     }
 
+    
     public List<Movie> findAll(int firstResult, int maxResults) {
         CriteriaQuery<Movie> cq = entityManager.getCriteriaBuilder().createQuery(Movie.class);
         cq.select(cq.from(Movie.class));
@@ -78,6 +85,7 @@ public class MoviesBean {
         return q.getResultList();
     }
 
+    
     public int countAll() {
         CriteriaQuery<Long> cq = entityManager.getCriteriaBuilder().createQuery(Long.class);
         Root<Movie> rt = cq.from(Movie.class);
@@ -86,6 +94,7 @@ public class MoviesBean {
         return (q.getSingleResult()).intValue();
     }
 
+    
     public int count(String field, String searchTerm) {
         CriteriaBuilder qb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Long> cq = qb.createQuery(Long.class);
@@ -101,6 +110,7 @@ public class MoviesBean {
         return entityManager.createQuery(cq).getSingleResult().intValue();
     }
 
+    
     public List<Movie> findRange(String field, String searchTerm, int firstResult, int maxResults) {
         CriteriaBuilder qb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Movie> cq = qb.createQuery(Movie.class);
@@ -117,6 +127,7 @@ public class MoviesBean {
         return q.getResultList();
     }
 
+    
     public void clean() {
         entityManager.createQuery("delete from Movie").executeUpdate();
     }
