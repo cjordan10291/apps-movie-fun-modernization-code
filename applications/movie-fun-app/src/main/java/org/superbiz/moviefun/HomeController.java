@@ -5,9 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.superbiz.moviefun.albums.Album;
 import org.superbiz.moviefun.albums.AlbumFixtures;
 import org.superbiz.moviefun.albums.AlbumsBean;
-import org.superbiz.moviefun.movies.Movie;
-import org.superbiz.moviefun.movies.MovieFixtures;
-import org.superbiz.moviefun.movies.MoviesBean;
+import org.superbiz.moviefun.moviesapi.MovieFixtures;
+import org.superbiz.moviefun.moviesapi.MovieInfo;
 
 import java.util.Map;
 
@@ -33,7 +32,7 @@ public class HomeController {
 
     @GetMapping("/setup")
     public String setup(Map<String, Object> model) {
-        for (Movie movie : movieFixtures.load()) {
+        for (MovieInfo movie : movieFixtures.load()) {
             moviesBean.addMovie(movie);
         }
 
