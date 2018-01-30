@@ -74,12 +74,12 @@
         <dd>${requestScope.album.year}</dd>
 
         <dt>Cover</dt>
-        <dd><img src="/albums/${requestScope.album.id}/cover" alt="Album Cover" class="cover"></dd>
+        <dd><img src="${blobstoreUrl}/${requestScope.album.id}" alt="Album Cover" class="cover"></dd>
     </dl>
 
     <h3>Change cover</h3>
 
-    <form action="/albums/${requestScope.album.id}/cover" method="POST" enctype="multipart/form-data">
+    <form action="${blobstoreUrl}/${requestScope.album.id}" method="POST" enctype="multipart/form-data">
         <input type="file" name="file" accept=".gif,.jpg,.jpeg,.png">
         <input type="submit" value="Upload">
     </form>
