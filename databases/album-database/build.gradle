@@ -40,7 +40,7 @@ task closeTunnel {
 }
 
 task cfMigrate(type: FlywayMigrateTask, dependsOn: openTunnel) {
-    if (System.env.CF_MIGRATE) {
+    doFirst {
         extension = setupProdFlywayExtension(new FlywayExtension(), "album-service")
     }
 }
