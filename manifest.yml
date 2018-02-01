@@ -11,11 +11,19 @@ applications:
   - album-database
   env:
     GRANT_TYPE: client_credentials
+  routes:
+    - route: album-service-cj.apps.pikes.pal.pivotal.io
 - name: movie-service
   path: applications/movie-service/build/libs/movie-service-1.1.0-SNAPSHOT.jar
   services:
   - movie-database
   env:
     GRANT_TYPE: client_credentials
+  routes:
+  - route: movie-service-cj.apps.pikes.pal.pivotal.io
 - name: movie-fun-app
   path: applications/movie-fun-app/build/libs/movie-fun-app-1.1.0-SNAPSHOT.war
+  services:
+  - movie-fun-config
+  routes:
+  - route: movie-fun-app-cj.apps.pikes.pal.pivotal.io
